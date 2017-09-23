@@ -1,0 +1,4 @@
+<resources>
+  <string name="app_name">ViewComponent</string>
+  <string name="badge">show badge</string>
+</resources>
