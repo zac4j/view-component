@@ -1,180 +1,167 @@
-package com.zac4j.widget;
+package com.zac4j.widget
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.RoundRectShape;
-import android.support.v7.widget.AppCompatTextView;
-import android.util.AttributeSet;
-import android.util.TypedValue;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.ViewParent;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.FrameLayout;
-import android.widget.TabWidget;
+import android.R.attr
+import android.content.Context
+import android.graphics.Color
+import android.graphics.Typeface
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.RoundRectShape
+import android.util.AttributeSet
+import android.util.TypedValue
+import android.view.Gravity
+import android.view.View
+import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.view.animation.DecelerateInterpolator
+import android.widget.FrameLayout
+import android.widget.TabWidget
+import androidx.appcompat.widget.AppCompatTextView
 
 /**
- * A simple text label view that can be applied as a "badge" to any given {@link android.view.View}.
+ * A simple text label view that can be applied as a "badge" to any given [android.view.View].
  * This class is intended to be instantiated at runtime rather than included in XML layouts.
  *
  * @author Jeff Gilfelt
  */
-public class BadgeView extends AppCompatTextView {
+class BadgeView @JvmOverloads constructor(
+  context: Context,
+  attrs: AttributeSet? = null,
+  defStyle: Int = attr.textViewStyle,
+  target: View? = null,
+  tabIndex: Int = 0
+) : AppCompatTextView(
+    context, attrs, defStyle
+) {
 
-  public static final int POSITION_TOP_LEFT = 1;
-  public static final int POSITION_TOP_RIGHT = 2;
-  public static final int POSITION_BOTTOM_LEFT = 3;
-  public static final int POSITION_BOTTOM_RIGHT = 4;
-  public static final int POSITION_CENTER = 5;
+  /**
+   * Returns the target View this badge has been attached to.
+   */
+  private var target: View? = null
+  /**
+   * Returns the positioning of this badge.
+   *
+   * one of POSITION_TOP_LEFT, POSITION_TOP_RIGHT, POSITION_BOTTOM_LEFT, POSITION_BOTTOM_RIGHT,
+   * POSTION_CENTER.
+   */
+  /**
+   * Set the positioning of this badge.
+   *
+   * @param layoutPosition one of POSITION_TOP_LEFT, POSITION_TOP_RIGHT, POSITION_BOTTOM_LEFT,
+   * POSITION_BOTTOM_RIGHT, POSTION_CENTER.
+   */
+  private var badgePosition = 0
 
-  private static final int DEFAULT_MARGIN_DIP = 5;
-  private static final int DEFAULT_LR_PADDING_DIP = 5;
-  private static final int DEFAULT_CORNER_RADIUS_DIP = 8;
-  private static final int DEFAULT_POSITION = POSITION_TOP_RIGHT;
-  private static final int DEFAULT_BADGE_COLOR = Color.parseColor("#CCFF0000"); //Color.RED;
-  private static final int DEFAULT_TEXT_COLOR = Color.WHITE;
+  /**
+   * Returns the horizontal margin from the target View that is applied to this badge.
+   */
+  private var horizontalBadgeMargin = 0
 
-  private static Animation fadeIn;
-  private static Animation fadeOut;
-
-  private Context context;
-  private View target;
-
-  private int badgePosition;
-  private int badgeMarginH;
-  private int badgeMarginV;
-  private int badgeColor;
-
-  private boolean isShown;
-
-  private ShapeDrawable badgeBg;
-
-  private int targetTabIndex;
-
-  public BadgeView(Context context) {
-    this(context, (AttributeSet) null, android.R.attr.textViewStyle);
-  }
-
-  public BadgeView(Context context, AttributeSet attrs) {
-    this(context, attrs, android.R.attr.textViewStyle);
-  }
+  /**
+   * Returns the vertical margin from the target View that is applied to this badge.
+   */
+  private var verticalBadgeMargin = 0
+  private var badgeColor = 0
+  private var isShown = false
+  private var badgeBg: ShapeDrawable? = null
+  private var targetTabIndex = 0
 
   /**
    * Constructor -
    *
-   * create a new BadgeView instance attached to a target {@link android.view.View}.
+   * create a new BadgeView instance attached to a target [android.view.View].
    *
    * @param context context for this view.
    * @param target the View to attach the badge to.
    */
-  public BadgeView(Context context, View target) {
-    this(context, null, android.R.attr.textViewStyle, target, 0);
+  constructor(
+    context: Context,
+    target: View?
+  ) : this(context, null, attr.textViewStyle, target, 0) {
   }
 
   /**
    * Constructor -
    *
-   * create a new BadgeView instance attached to a target {@link android.widget.TabWidget}
+   * create a new BadgeView instance attached to a target [android.widget.TabWidget]
    * tab at a given index.
    *
    * @param context context for this view.
    * @param target the TabWidget to attach the badge to.
    * @param index the position of the tab within the target.
    */
-  public BadgeView(Context context, TabWidget target, int index) {
-    this(context, null, android.R.attr.textViewStyle, target, index);
-  }
+  constructor(
+    context: Context,
+    target: TabWidget?,
+    index: Int
+  ) : this(context, null, attr.textViewStyle, target, index)
 
-  public BadgeView(Context context, AttributeSet attrs, int defStyle) {
-    this(context, attrs, defStyle, null, 0);
-  }
-
-  public BadgeView(Context context, AttributeSet attrs, int defStyle, View target, int tabIndex) {
-    super(context, attrs, defStyle);
-    init(context, target, tabIndex);
-  }
-
-  private void init(Context context, View target, int tabIndex) {
-
-    this.context = context;
-    this.target = target;
-    this.targetTabIndex = tabIndex;
+  private fun init(
+    context: Context,
+    target: View?,
+    tabIndex: Int
+  ) {
+    this.target = target
+    targetTabIndex = tabIndex
 
     // apply defaults
-    badgePosition = DEFAULT_POSITION;
-    badgeMarginH = dipToPixels(DEFAULT_MARGIN_DIP);
-    badgeMarginV = badgeMarginH;
-    badgeColor = DEFAULT_BADGE_COLOR;
-
-    setTypeface(Typeface.DEFAULT_BOLD);
-    int paddingPixels = dipToPixels(DEFAULT_LR_PADDING_DIP);
-    setPadding(paddingPixels, 0, paddingPixels, 0);
-    setTextColor(DEFAULT_TEXT_COLOR);
-
-    fadeIn = new AlphaAnimation(0, 1);
-    fadeIn.setInterpolator(new DecelerateInterpolator());
-    fadeIn.setDuration(200);
-
-    fadeOut = new AlphaAnimation(1, 0);
-    fadeOut.setInterpolator(new AccelerateInterpolator());
-    fadeOut.setDuration(200);
-
-    isShown = false;
-
+    badgePosition = DEFAULT_POSITION
+    horizontalBadgeMargin = dipToPixels(DEFAULT_MARGIN_DIP)
+    verticalBadgeMargin = horizontalBadgeMargin
+    badgeColor = DEFAULT_BADGE_COLOR
+    typeface = Typeface.DEFAULT_BOLD
+    val paddingPixels = dipToPixels(DEFAULT_LR_PADDING_DIP)
+    setPadding(paddingPixels, 0, paddingPixels, 0)
+    setTextColor(DEFAULT_TEXT_COLOR)
+    fadeIn = AlphaAnimation(0F, 1F)
+    fadeIn?.interpolator = DecelerateInterpolator()
+    fadeIn?.duration = 200
+    fadeOut = AlphaAnimation(1F, 0F)
+    fadeOut?.interpolator = AccelerateInterpolator()
+    fadeOut?.duration = 200
+    isShown = false
     if (this.target != null) {
-      applyTo(this.target);
+      applyTo(this.target)
     } else {
-      show();
+      show()
     }
   }
 
-  private void applyTo(View target) {
-
-    LayoutParams lp = target.getLayoutParams();
-    ViewParent parent = target.getParent();
-    FrameLayout container = new FrameLayout(context);
-
-    if (target instanceof TabWidget) {
+  private fun applyTo(target: View?) {
+    var target = target
+    val lp = target!!.layoutParams
+    val parent = target.parent
+    val container = FrameLayout(context!!)
+    if (target is TabWidget) {
 
       // set target to the relevant tab child container
-      target = ((TabWidget) target).getChildTabViewAt(targetTabIndex);
-      this.target = target;
-
-      ((ViewGroup) target).addView(container,
-          new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-
-      this.setVisibility(View.GONE);
-      container.addView(this);
+      target = target.getChildTabViewAt(targetTabIndex)
+      this.target = target
+      (target as ViewGroup?)!!.addView(
+          container,
+          LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+      )
+      this.visibility = GONE
+      container.addView(this)
     } else {
-
-      ViewGroup group = (ViewGroup) parent;
-      int index = group.indexOfChild(target);
-
-      group.removeView(target);
-      group.addView(container, index, lp);
-
-      container.addView(target);
-
-      this.setVisibility(View.GONE);
-      container.addView(this);
-
-      group.invalidate();
+      val group = parent as ViewGroup
+      val index = group.indexOfChild(target)
+      group.removeView(target)
+      group.addView(container, index, lp)
+      container.addView(target)
+      this.visibility = GONE
+      container.addView(this)
+      group.invalidate()
     }
   }
 
   /**
    * Make the badge visible in the UI.
    */
-  public void show() {
-    show(false, null);
+  fun show() {
+    show(false, null)
   }
 
   /**
@@ -182,8 +169,8 @@ public class BadgeView extends AppCompatTextView {
    *
    * @param animate flag to apply the default fade-in animation.
    */
-  public void show(boolean animate) {
-    show(animate, fadeIn);
+  fun show(animate: Boolean) {
+    show(animate, fadeIn)
   }
 
   /**
@@ -191,15 +178,15 @@ public class BadgeView extends AppCompatTextView {
    *
    * @param anim Animation to apply to the view when made visible.
    */
-  public void show(Animation anim) {
-    show(true, anim);
+  fun show(anim: Animation?) {
+    show(true, anim)
   }
 
   /**
    * Make the badge non-visible in the UI.
    */
-  public void hide() {
-    hide(false, null);
+  fun hide() {
+    hide(false, null)
   }
 
   /**
@@ -207,8 +194,8 @@ public class BadgeView extends AppCompatTextView {
    *
    * @param animate flag to apply the default fade-out animation.
    */
-  public void hide(boolean animate) {
-    hide(animate, fadeOut);
+  fun hide(animate: Boolean) {
+    hide(animate, fadeOut)
   }
 
   /**
@@ -216,15 +203,15 @@ public class BadgeView extends AppCompatTextView {
    *
    * @param anim Animation to apply to the view when made non-visible.
    */
-  public void hide(Animation anim) {
-    hide(true, anim);
+  fun hide(anim: Animation?) {
+    hide(true, anim)
   }
 
   /**
    * Toggle the badge visibility in the UI.
    */
-  public void toggle() {
-    toggle(false, null, null);
+  fun toggle() {
+    toggle(false, null, null)
   }
 
   /**
@@ -232,8 +219,8 @@ public class BadgeView extends AppCompatTextView {
    *
    * @param animate flag to apply the default fade-in/out animation.
    */
-  public void toggle(boolean animate) {
-    toggle(animate, fadeIn, fadeOut);
+  fun toggle(animate: Boolean) {
+    toggle(animate, fadeIn, fadeOut)
   }
 
   /**
@@ -242,39 +229,51 @@ public class BadgeView extends AppCompatTextView {
    * @param animIn Animation to apply to the view when made visible.
    * @param animOut Animation to apply to the view when made non-visible.
    */
-  public void toggle(Animation animIn, Animation animOut) {
-    toggle(true, animIn, animOut);
+  fun toggle(
+    animIn: Animation?,
+    animOut: Animation?
+  ) {
+    toggle(true, animIn, animOut)
   }
 
-  private void show(boolean animate, Animation anim) {
-    if (getBackground() == null) {
+  private fun show(
+    animate: Boolean,
+    anim: Animation?
+  ) {
+    if (background == null) {
       if (badgeBg == null) {
-        badgeBg = getDefaultBackground();
+        badgeBg = defaultBackground
       }
-      setBackgroundDrawable(badgeBg);
+      setBackgroundDrawable(badgeBg)
     }
-    applyLayoutParams();
-
+    applyLayoutParams()
     if (animate) {
-      this.startAnimation(anim);
+      startAnimation(anim)
     }
-    this.setVisibility(View.VISIBLE);
-    isShown = true;
+    this.visibility = VISIBLE
+    isShown = true
   }
 
-  private void hide(boolean animate, Animation anim) {
-    this.setVisibility(View.GONE);
+  private fun hide(
+    animate: Boolean,
+    anim: Animation?
+  ) {
+    this.visibility = GONE
     if (animate) {
-      this.startAnimation(anim);
+      startAnimation(anim)
     }
-    isShown = false;
+    isShown = false
   }
 
-  private void toggle(boolean animate, Animation animIn, Animation animOut) {
+  private fun toggle(
+    animate: Boolean,
+    animIn: Animation?,
+    animOut: Animation?
+  ) {
     if (isShown) {
-      hide(animate && (animOut != null), animOut);
+      hide(animate && animOut != null, animOut)
     } else {
-      show(animate && (animIn != null), animIn);
+      show(animate && animIn != null, animIn)
     }
   }
 
@@ -284,21 +283,22 @@ public class BadgeView extends AppCompatTextView {
    *
    * @param offset the increment offset.
    */
-  public int increment(int offset) {
-    CharSequence txt = getText();
-    int i;
-    if (txt != null) {
+  fun increment(offset: Int): Int {
+    val txt = text
+    var i: Int
+    i = if (txt != null) {
       try {
-        i = Integer.parseInt(txt.toString());
-      } catch (NumberFormatException e) {
-        i = 0;
+        txt.toString()
+            .toInt()
+      } catch (e: NumberFormatException) {
+        0
       }
     } else {
-      i = 0;
+      0
     }
-    i = i + offset;
-    setText(String.valueOf(i));
-    return i;
+    i = i + offset
+    text = i.toString()
+    return i
   }
 
   /**
@@ -307,101 +307,57 @@ public class BadgeView extends AppCompatTextView {
    *
    * @param offset the decrement offset.
    */
-  public int decrement(int offset) {
-    return increment(-offset);
+  fun decrement(offset: Int): Int {
+    return increment(-offset)
   }
 
-  private ShapeDrawable getDefaultBackground() {
-
-    int r = dipToPixels(DEFAULT_CORNER_RADIUS_DIP);
-    float[] outerR = new float[] { r, r, r, r, r, r, r, r };
-
-    RoundRectShape rr = new RoundRectShape(outerR, null, null);
-    ShapeDrawable drawable = new ShapeDrawable(rr);
-    drawable.getPaint().setColor(badgeColor);
-
-    return drawable;
-  }
-
-  private void applyLayoutParams() {
-
-    FrameLayout.LayoutParams lp =
-        new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-
-    switch (badgePosition) {
-      case POSITION_TOP_LEFT:
-        lp.gravity = Gravity.LEFT | Gravity.TOP;
-        lp.setMargins(badgeMarginH, badgeMarginV, 0, 0);
-        break;
-      case POSITION_TOP_RIGHT:
-        lp.gravity = Gravity.RIGHT | Gravity.TOP;
-        lp.setMargins(0, badgeMarginV, badgeMarginH, 0);
-        break;
-      case POSITION_BOTTOM_LEFT:
-        lp.gravity = Gravity.LEFT | Gravity.BOTTOM;
-        lp.setMargins(badgeMarginH, 0, 0, badgeMarginV);
-        break;
-      case POSITION_BOTTOM_RIGHT:
-        lp.gravity = Gravity.RIGHT | Gravity.BOTTOM;
-        lp.setMargins(0, 0, badgeMarginH, badgeMarginV);
-        break;
-      case POSITION_CENTER:
-        lp.gravity = Gravity.CENTER;
-        lp.setMargins(0, 0, 0, 0);
-        break;
-      default:
-        break;
+  private val defaultBackground: ShapeDrawable
+    private get() {
+      val r = dipToPixels(DEFAULT_CORNER_RADIUS_DIP)
+      val outerR = floatArrayOf(
+          r.toFloat(), r.toFloat(), r.toFloat(), r.toFloat(), r.toFloat(), r.toFloat(), r.toFloat(),
+          r.toFloat()
+      )
+      val rr = RoundRectShape(outerR, null, null)
+      val drawable = ShapeDrawable(rr)
+      drawable.paint.color = badgeColor
+      return drawable
     }
 
-    setLayoutParams(lp);
-  }
-
-  /**
-   * Returns the target View this badge has been attached to.
-   */
-  public View getTarget() {
-    return target;
+  private fun applyLayoutParams() {
+    val lp = FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
+    when (badgePosition) {
+      POSITION_TOP_LEFT -> {
+        lp.gravity = Gravity.LEFT or Gravity.TOP
+        lp.setMargins(horizontalBadgeMargin, verticalBadgeMargin, 0, 0)
+      }
+      POSITION_TOP_RIGHT -> {
+        lp.gravity = Gravity.RIGHT or Gravity.TOP
+        lp.setMargins(0, verticalBadgeMargin, horizontalBadgeMargin, 0)
+      }
+      POSITION_BOTTOM_LEFT -> {
+        lp.gravity = Gravity.LEFT or Gravity.BOTTOM
+        lp.setMargins(horizontalBadgeMargin, 0, 0, verticalBadgeMargin)
+      }
+      POSITION_BOTTOM_RIGHT -> {
+        lp.gravity = Gravity.RIGHT or Gravity.BOTTOM
+        lp.setMargins(0, 0, horizontalBadgeMargin, verticalBadgeMargin)
+      }
+      POSITION_CENTER -> {
+        lp.gravity = Gravity.CENTER
+        lp.setMargins(0, 0, 0, 0)
+      }
+      else -> {
+      }
+    }
+    layoutParams = lp
   }
 
   /**
    * Is this badge currently visible in the UI?
    */
-  @Override public boolean isShown() {
-    return isShown;
-  }
-
-  /**
-   * Returns the positioning of this badge.
-   *
-   * one of POSITION_TOP_LEFT, POSITION_TOP_RIGHT, POSITION_BOTTOM_LEFT, POSITION_BOTTOM_RIGHT,
-   * POSTION_CENTER.
-   */
-  public int getBadgePosition() {
-    return badgePosition;
-  }
-
-  /**
-   * Set the positioning of this badge.
-   *
-   * @param layoutPosition one of POSITION_TOP_LEFT, POSITION_TOP_RIGHT, POSITION_BOTTOM_LEFT,
-   * POSITION_BOTTOM_RIGHT, POSTION_CENTER.
-   */
-  public void setBadgePosition(int layoutPosition) {
-    this.badgePosition = layoutPosition;
-  }
-
-  /**
-   * Returns the horizontal margin from the target View that is applied to this badge.
-   */
-  public int getHorizontalBadgeMargin() {
-    return badgeMarginH;
-  }
-
-  /**
-   * Returns the vertical margin from the target View that is applied to this badge.
-   */
-  public int getVerticalBadgeMargin() {
-    return badgeMarginV;
+  override fun isShown(): Boolean {
+    return isShown
   }
 
   /**
@@ -409,9 +365,9 @@ public class BadgeView extends AppCompatTextView {
    *
    * @param badgeMargin the margin in pixels.
    */
-  public void setBadgeMargin(int badgeMargin) {
-    this.badgeMarginH = badgeMargin;
-    this.badgeMarginV = badgeMargin;
+  fun setBadgeMargin(badgeMargin: Int) {
+    horizontalBadgeMargin = badgeMargin
+    verticalBadgeMargin = badgeMargin
   }
 
   /**
@@ -420,31 +376,51 @@ public class BadgeView extends AppCompatTextView {
    * @param horizontal margin in pixels.
    * @param vertical margin in pixels.
    */
-  public void setBadgeMargin(int horizontal, int vertical) {
-    this.badgeMarginH = horizontal;
-    this.badgeMarginV = vertical;
+  fun setBadgeMargin(
+    horizontal: Int,
+    vertical: Int
+  ) {
+    horizontalBadgeMargin = horizontal
+    verticalBadgeMargin = vertical
   }
-
   /**
    * Returns the color value of the badge background.
    */
-  public int getBadgeBackgroundColor() {
-    return badgeColor;
-  }
-
   /**
    * Set the color value of the badge background.
    *
    * @param badgeColor the badge background color.
    */
-  public void setBadgeBackgroundColor(int badgeColor) {
-    this.badgeColor = badgeColor;
-    badgeBg = getDefaultBackground();
+  var badgeBackgroundColor: Int
+    get() = badgeColor
+    set(badgeColor) {
+      this.badgeColor = badgeColor
+      badgeBg = defaultBackground
+    }
+
+  private fun dipToPixels(dip: Int): Int {
+    val r = resources
+    val px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip.toFloat(), r.displayMetrics)
+    return px.toInt()
   }
 
-  private int dipToPixels(int dip) {
-    Resources r = getResources();
-    float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, r.getDisplayMetrics());
-    return (int) px;
+  companion object {
+    const val POSITION_TOP_LEFT = 1
+    const val POSITION_TOP_RIGHT = 2
+    const val POSITION_BOTTOM_LEFT = 3
+    const val POSITION_BOTTOM_RIGHT = 4
+    const val POSITION_CENTER = 5
+    private const val DEFAULT_MARGIN_DIP = 5
+    private const val DEFAULT_LR_PADDING_DIP = 5
+    private const val DEFAULT_CORNER_RADIUS_DIP = 8
+    private const val DEFAULT_POSITION = POSITION_TOP_RIGHT
+    private val DEFAULT_BADGE_COLOR = Color.parseColor("#CCFF0000") //Color.RED;
+    private const val DEFAULT_TEXT_COLOR = Color.WHITE
+    private var fadeIn: Animation? = null
+    private var fadeOut: Animation? = null
+  }
+
+  init {
+    init(context, target, tabIndex)
   }
 }
