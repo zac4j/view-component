@@ -3,11 +3,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-  compileSdkVersion 30
+  compileSdkVersion 29
   defaultConfig {
     applicationId "com.zac4j.sample"
     minSdkVersion 21
-    targetSdkVersion 30
+    targetSdkVersion 29
     versionCode 1
     versionName "1.0"
   }
@@ -21,7 +21,7 @@ android {
 }
 
 dependencies {
-  compile project(':widget')
+  implementation project(':widget')
   implementation 'androidx.appcompat:appcompat:1.2.0'
   implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
   implementation 'com.google.android.material:material:1.2.1'
