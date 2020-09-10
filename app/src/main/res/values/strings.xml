@@ -2,4 +2,5 @@
   <string name="app_name">ViewComponent</string>
   <string name="show_badge">show badge</string>
   <string name="show_paint">show paint</string>
+  <string name="show_rect">show clip rectangle</string>
 </resources>

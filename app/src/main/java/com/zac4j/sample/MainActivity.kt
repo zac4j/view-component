@@ -27,13 +27,26 @@ class MainActivity : AppCompatActivity(), OnClickListener {
 //        badgeView.show()
       }
       id.main_btn_show_paint -> {
-        val fragment = supportFragmentManager.findFragmentById(id.main_container)
-        if (fragment == null) {
-          val page = MiniPaintFragment()
-          supportFragmentManager.beginTransaction()
-              .add(id.main_container, page)
-              .commit()
+        var fragment = supportFragmentManager.findFragmentById(id.main_container)
+        val ft = supportFragmentManager.beginTransaction()
+        if (fragment != null) {
+          ft.remove(fragment)
         }
+
+        fragment = CustomViewFragment.newInstance(CustomViewFragment.VIEW_TYPE_MINI_PAINT)
+        ft.add(id.main_container, fragment)
+            .commit()
+      }
+      id.main_btn_show_rect -> {
+        var fragment = supportFragmentManager.findFragmentById(id.main_container)
+        val ft = supportFragmentManager.beginTransaction()
+        if (fragment != null) {
+          ft.remove(fragment)
+        }
+
+        fragment = CustomViewFragment.newInstance(CustomViewFragment.VIEW_TYPE_CLIP_RECT)
+        ft.add(id.main_container, fragment)
+            .commit()
       }
     }
   }
