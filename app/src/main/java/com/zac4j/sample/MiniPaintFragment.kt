@@ -9,7 +9,7 @@ import com.zac4j.widget.ClippedView
 import com.zac4j.widget.MiniPaint
 
 /**
- * Desc:
+ * Page for display custom views.
  *
  * @author: zac
  * @date: 2020/9/9
