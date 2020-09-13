@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.zac4j.widget.ClippedView
 import com.zac4j.widget.MiniPaint
+import com.zac4j.widget.SpotLightImageView
 
 /**
  * Page for display custom views.
@@ -21,6 +22,7 @@ class CustomViewFragment : Fragment() {
 
     const val VIEW_TYPE_MINI_PAINT = 0x101
     const val VIEW_TYPE_CLIP_RECT = 0x102
+    const val VIEW_TYPE_SPOTLIGHT = 0x103
 
     fun newInstance(viewType: Int): CustomViewFragment {
       val args = Bundle()
@@ -55,7 +57,13 @@ class CustomViewFragment : Fragment() {
         painter.contentDescription = getString(R.string.canvasContentDescription)
         return painter
       }
+      VIEW_TYPE_SPOTLIGHT -> {
+        return SpotLightImageView(requireContext())
+      }
       else -> super.onCreateView(inflater, container, savedInstanceState)
     }
   }
+
+  fun getViewType() = mViewType
+
 }
