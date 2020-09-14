@@ -12,7 +12,7 @@ import android.util.AttributeSet
 import android.view.View
 
 /**
- * Desc:
+ * Clipping canvas objects
  *
  * @author: zac
  * @date: 2020/9/10

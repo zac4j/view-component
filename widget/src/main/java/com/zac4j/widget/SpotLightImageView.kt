@@ -6,13 +6,17 @@ import android.graphics.BitmapFactory
 import android.graphics.BitmapShader
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.RectF
 import android.graphics.Shader
 import android.util.AttributeSet
+import android.view.MotionEvent
 import androidx.appcompat.widget.AppCompatImageView
+import kotlin.math.floor
+import kotlin.random.Random
 
 /**
  * Desc:
@@ -30,7 +34,7 @@ class SpotLightImageView @JvmOverloads constructor(
   private var shouldDrawSpotLight = false
   private var gameOver = false
 
-  private lateinit var winnerRect: RectF
+  private lateinit var droidRect: RectF
   private var droidBitmapX = 0F
   private var droidBitmapY = 0F
 
@@ -40,7 +44,9 @@ class SpotLightImageView @JvmOverloads constructor(
   )
   private val spotlight = BitmapFactory.decodeResource(resources, R.drawable.mask)
 
-  private lateinit var shader: Shader
+  private var shader: Shader
+
+  private val shaderMatrix = Matrix()
 
   init {
     val bitmap = Bitmap.createBitmap(spotlight.width, spotlight.height, Bitmap.Config.ARGB_8888)
@@ -56,6 +62,79 @@ class SpotLightImageView @JvmOverloads constructor(
 
     shader = BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
     paint.shader = shader
+  }
+
+//  override fun onDraw(canvas: Canvas?) {
+//    super.onDraw(canvas)
+//
+//    shaderMatrix.setTranslate(
+//        100F,
+//        550F
+//    )
+//    shader.setLocalMatrix(shaderMatrix)
+//
+//    // Color the background yellow
+//    canvas?.drawColor(Color.CYAN)
+//    canvas?.drawRect(0F, 0F, width.toFloat(), height.toFloat(), paint)
+//  }
+
+  /**
+   * Draw Android bitmap
+   */
+  override fun onDraw(canvas: Canvas?) {
+    super.onDraw(canvas)
+    canvas?.drawColor(Color.CYAN)
+    
+  }
+
+  override fun onSizeChanged(
+    w: Int,
+    h: Int,
+    oldw: Int,
+    oldh: Int
+  ) {
+    super.onSizeChanged(w, h, oldw, oldh)
+    setupDroidRect()
+  }
+
+  override fun onTouchEvent(event: MotionEvent): Boolean {
+    val eventX = event.x
+    val eventY = event.y
+
+    when (event.action) {
+      MotionEvent.ACTION_DOWN -> {
+        shouldDrawSpotLight = true
+        if (gameOver) {
+          gameOver = false
+          setupDroidRect()
+        }
+      }
+
+      MotionEvent.ACTION_UP -> {
+        shouldDrawSpotLight = false
+        gameOver = droidRect.contains(eventX, eventY)
+      }
+    }
+    shaderMatrix.setTranslate(
+        eventX - spotlight.width / 2.0f,
+        eventY - spotlight.height / 2.0f
+    )
+    shader.setLocalMatrix(shaderMatrix)
+    invalidate()
+
+    return true
+  }
+
+  private fun setupDroidRect() {
+    droidBitmapX = floor(Random.nextFloat() * (width - bitmapDroid.width))
+    droidBitmapY = floor(Random.nextFloat() * (width - bitmapDroid.height))
+
+    droidRect = RectF(
+        droidBitmapX,
+        droidBitmapY,
+        droidBitmapX + bitmapDroid.width,
+        droidBitmapY + bitmapDroid.height
+    )
   }
 
 }
