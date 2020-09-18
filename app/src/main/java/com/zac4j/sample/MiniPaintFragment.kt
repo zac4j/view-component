@@ -1,9 +1,11 @@
 package com.zac4j.sample
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.zac4j.widget.ClippedView
 import com.zac4j.widget.MiniPaint
@@ -58,6 +60,7 @@ class CustomViewFragment : Fragment() {
         return painter
       }
       VIEW_TYPE_SPOTLIGHT -> {
+        showSpotLightIntroductionDialog()
         return SpotLightImageView(requireContext())
       }
       else -> super.onCreateView(inflater, container, savedInstanceState)
@@ -65,5 +68,16 @@ class CustomViewFragment : Fragment() {
   }
 
   fun getViewType() = mViewType
+
+  private fun showSpotLightIntroductionDialog() {
+    AlertDialog.Builder(requireContext())
+        .setIcon(com.zac4j.widget.R.drawable.android)
+        .setTitle(com.zac4j.widget.R.string.instructions_title)
+        .setMessage(com.zac4j.widget.R.string.instructions)
+        .setIcon(ContextCompat.getDrawable(requireContext(), android.R.drawable.ic_media_play))
+        .setPositiveButton("OK", null)
+        .create()
+        .show()
+  }
 
 }

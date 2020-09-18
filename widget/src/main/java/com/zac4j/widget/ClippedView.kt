@@ -181,6 +181,7 @@ class ClippedView @JvmOverloads constructor(
         circleRadius, clipRectBottom - circleRadius,
         circleRadius, Path.Direction.CCW
     )
+
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
       canvas.clipPath(path, Region.Op.DIFFERENCE)
     } else {
@@ -198,7 +199,7 @@ class ClippedView @JvmOverloads constructor(
         clipRectRight - smallRectOffset,
         clipRectBottom - smallRectOffset
     )
-    //
+
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
       canvas.clipRect(
           clipRectLeft + smallRectOffset,
@@ -244,8 +245,8 @@ class ClippedView @JvmOverloads constructor(
     path.rewind()
     path.addRoundRect(
         rectF,
-        clipRectRight / 4,
-        clipRectRight / 4,
+        clipRectRight / 9,
+        clipRectRight / 9,
         Path.Direction.CCW
     )
     canvas.clipPath(path)
@@ -322,7 +323,8 @@ class ClippedView @JvmOverloads constructor(
     if (canvas.quickReject(inClipRectangle, Canvas.EdgeType.AA)) {
       canvas.drawColor(Color.WHITE)
     } else {
-      canvas.drawColor(Color.WHITE)
+      canvas.drawColor(Color.BLACK)
+      paint.color = Color.YELLOW
       canvas.drawRect(inClipRectangle, paint)
     }
 

@@ -19,7 +19,7 @@ import kotlin.math.floor
 import kotlin.random.Random
 
 /**
- * Desc:
+ * Create Effects with Shader
  *
  * @author: zac
  * @date: 2020/9/13
@@ -64,6 +64,9 @@ class SpotLightImageView @JvmOverloads constructor(
     paint.shader = shader
   }
 
+  /**
+   * Draw mask
+   */
 //  override fun onDraw(canvas: Canvas?) {
 //    super.onDraw(canvas)
 //
@@ -83,8 +86,16 @@ class SpotLightImageView @JvmOverloads constructor(
    */
   override fun onDraw(canvas: Canvas?) {
     super.onDraw(canvas)
-    canvas?.drawColor(Color.CYAN)
-    
+    canvas?.drawColor(Color.WHITE)
+    canvas?.drawBitmap(bitmapDroid, droidBitmapX, droidBitmapY, paint)
+
+    if (!gameOver) {
+      if (shouldDrawSpotLight) {
+        canvas?.drawRect(0F, 0F, width.toFloat(), height.toFloat(), paint)
+      } else {
+        canvas?.drawColor(Color.BLACK)
+      }
+    }
   }
 
   override fun onSizeChanged(
@@ -136,5 +147,4 @@ class SpotLightImageView @JvmOverloads constructor(
         droidBitmapY + bitmapDroid.height
     )
   }
-
 }
