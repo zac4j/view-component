@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <item name="main_tv_text" type="id"/>
+  <item name="main_btn_show_star_anim" type="id"/>
   <item name="main_btn_show_badge" type="id"/>
   <item name="main_btn_show_paint" type="id"/>
   <item name="main_btn_show_rect" type="id"/>

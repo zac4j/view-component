@@ -13,7 +13,7 @@
     tools:context="com.zac4j.sample.MainActivity">
 
     <Button
-      android:id="@id/main_btn_show_badge"
+      android:id="@id/main_btn_show_star_anim"
       style="@style/Widget.AppCompat.Button.Colored"
       android:layout_width="0dp"
       android:layout_height="48dp"
@@ -21,7 +21,7 @@
       android:layout_marginTop="8dp"
       android:layout_marginEnd="8dp"
       android:onClick="onClick"
-      android:text="@string/show_badge"
+      android:text="@string/show_star_anim"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
@@ -38,7 +38,7 @@
       android:text="@string/show_paint"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/main_btn_show_badge" />
+      app:layout_constraintTop_toBottomOf="@id/main_btn_show_star_anim" />
 
     <Button
       android:id="@id/main_btn_show_rect"

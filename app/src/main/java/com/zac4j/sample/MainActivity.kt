@@ -23,11 +23,9 @@ class MainActivity : AppCompatActivity(), OnClickListener {
   override fun onClick(view: View) {
     var fragment: Fragment? = supportFragmentManager.findFragmentById(id.main_container)
     when (view.id) {
-      //id.main_btn_show_badge -> {
-//        val badgeView = BadgeView(this@MainActivity, mContentTextView)
-//        badgeView.increment(10)
-//        badgeView.show()
-      //}
+      id.main_btn_show_star_anim -> {
+        fragment = StarAnimFragment()
+      }
       id.main_btn_show_paint -> {
         if (fragment is CustomViewFragment && fragment.getViewType() == CustomViewFragment.VIEW_TYPE_MINI_PAINT) {
           return

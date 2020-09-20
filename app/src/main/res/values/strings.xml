@@ -1,7 +1,15 @@
 <resources>
   <string name="app_name">ViewComponent</string>
+  <string name="show_star_anim">show star anim</string>
   <string name="show_badge">show badge</string>
   <string name="show_paint">show paint</string>
   <string name="show_rect">show clip rectangle</string>
   <string name="show_spotlight">show spotlight</string>
+
+  <string name="rotate">Rotate</string>
+  <string name="translate">Translate</string>
+  <string name="scale">Scale</string>
+  <string name="fade">Fade</string>
+  <string name="shower">Shower</string>
+  <string name="sky_color">Sky Color</string>
 </resources>
