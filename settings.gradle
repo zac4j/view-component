@@ -1,1 +1,2 @@
+include ':motion'
 include ':app', ':widget'

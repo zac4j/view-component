@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="view-component/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/motion/motion.iml" filepath="$PROJECT_DIR$/.idea/modules/motion/motion.iml" group="view-component/motion" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/view-component.iml" filepath="$PROJECT_DIR$/.idea/modules/view-component.iml" group="view-component" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/widget/widget.iml" filepath="$PROJECT_DIR$/.idea/modules/widget/widget.iml" group="view-component/widget" />
     </modules>
