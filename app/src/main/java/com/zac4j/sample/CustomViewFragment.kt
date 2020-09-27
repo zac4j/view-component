@@ -25,14 +25,6 @@ class CustomViewFragment : Fragment() {
     const val VIEW_TYPE_MINI_PAINT = 0x101
     const val VIEW_TYPE_CLIP_RECT = 0x102
     const val VIEW_TYPE_SPOTLIGHT = 0x103
-
-    fun newInstance(viewType: Int): CustomViewFragment {
-      val args = Bundle()
-      args.putInt(ARGS_VIEW_TYPE, viewType)
-      val fragment = CustomViewFragment()
-      fragment.arguments = args
-      return fragment
-    }
   }
 
   private var mViewType: Int? = VIEW_TYPE_MINI_PAINT
@@ -41,7 +33,7 @@ class CustomViewFragment : Fragment() {
     super.onCreate(savedInstanceState)
     arguments?.takeIf { it.containsKey(ARGS_VIEW_TYPE) }
         ?.let {
-          mViewType = it.getInt(ARGS_VIEW_TYPE)
+          mViewType = it.getInt(ARGS_VIEW_TYPE, VIEW_TYPE_MINI_PAINT)
         }
   }
 
@@ -52,22 +44,19 @@ class CustomViewFragment : Fragment() {
   ): View? {
     return when (mViewType) {
       VIEW_TYPE_CLIP_RECT -> {
-        return ClippedView(requireContext())
-      }
-      VIEW_TYPE_MINI_PAINT -> {
-        val painter = MiniPaint(requireContext())
-        painter.contentDescription = getString(R.string.canvasContentDescription)
-        return painter
+        ClippedView(requireContext())
       }
       VIEW_TYPE_SPOTLIGHT -> {
         showSpotLightIntroductionDialog()
-        return SpotLightImageView(requireContext())
+        SpotLightImageView(requireContext())
       }
-      else -> super.onCreateView(inflater, container, savedInstanceState)
+      else -> {
+        val painter = MiniPaint(requireContext())
+        painter.contentDescription = getString(R.string.canvasContentDescription)
+        painter
+      }
     }
   }
-
-  fun getViewType() = mViewType
 
   private fun showSpotLightIntroductionDialog() {
     AlertDialog.Builder(requireContext())

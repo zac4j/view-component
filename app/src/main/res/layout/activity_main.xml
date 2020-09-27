@@ -12,70 +12,40 @@
     android:layout_height="match_parent"
     tools:context="com.zac4j.sample.MainActivity">
 
-    <Button
-      android:id="@id/main_btn_show_star_anim"
-      style="@style/Widget.AppCompat.Button.Colored"
+    <androidx.appcompat.widget.Toolbar
+      android:id="@id/toolbar"
       android:layout_width="0dp"
-      android:layout_height="48dp"
-      android:layout_marginStart="8dp"
-      android:layout_marginTop="8dp"
-      android:layout_marginEnd="8dp"
-      android:onClick="onClick"
-      android:text="@string/show_star_anim"
+      android:layout_height="?attr/actionBarSize"
+      android:background="?attr/colorPrimary"
+      android:elevation="4dp"
+      android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      app:layout_constraintTop_toTopOf="parent"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <Button
-      android:id="@id/main_btn_show_paint"
-      style="@style/Widget.AppCompat.Button.Colored"
-      android:layout_width="0dp"
-      android:layout_height="48dp"
-      android:layout_marginStart="8dp"
-      android:layout_marginTop="8dp"
-      android:layout_marginEnd="8dp"
-      android:onClick="onClick"
-      android:text="@string/show_paint"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/main_btn_show_star_anim" />
-
-    <Button
-      android:id="@id/main_btn_show_rect"
-      style="@style/Widget.AppCompat.Button.Colored"
-      android:layout_width="0dp"
-      android:layout_height="48dp"
-      android:layout_marginStart="8dp"
-      android:layout_marginTop="8dp"
-      android:layout_marginEnd="8dp"
-      android:onClick="onClick"
-      android:text="@string/show_rect"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/main_btn_show_paint" />
-
-    <Button
-      android:id="@id/main_btn_show_spotlight"
-      style="@style/Widget.AppCompat.Button.Colored"
-      android:layout_width="0dp"
-      android:layout_height="48dp"
-      android:layout_marginStart="8dp"
-      android:layout_marginTop="8dp"
-      android:layout_marginEnd="8dp"
-      android:onClick="onClick"
-      android:text="@string/show_spotlight"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/main_btn_show_rect" />
-
-    <FrameLayout
-      android:id="@+id/main_container"
+    <androidx.fragment.app.FragmentContainerView
+      android:id="@id/nav_host_fragment"
+      android:name="androidx.navigation.fragment.NavHostFragment"
       android:layout_width="0dp"
       android:layout_height="0dp"
+      app:defaultNavHost="true"
+      app:layout_constraintBottom_toTopOf="@id/btm_navigator"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/toolbar"
+      app:navGraph="@navigation/nav_graph" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+      android:id="@id/btm_navigator"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:background="?android:attr/windowBackground"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/main_btn_show_spotlight" />
+      app:layout_constraintTop_toBottomOf="@id/nav_host_fragment"
+      app:menu="@menu/bottom_nav_menu" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

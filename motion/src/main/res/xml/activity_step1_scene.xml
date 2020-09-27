@@ -6,7 +6,6 @@
     motion:constraintSetEnd="@id/end"
     motion:constraintSetStart="@id/start"
     motion:duration="1000">
-    <KeyFrameSet></KeyFrameSet>
     <OnClick
       motion:clickAction="toggle"
       motion:targetId="@id/red_star" />
