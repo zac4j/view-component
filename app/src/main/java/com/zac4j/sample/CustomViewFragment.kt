@@ -19,14 +19,6 @@ import com.zac4j.widget.SpotLightImageView
  */
 class CustomViewFragment : Fragment() {
 
-  companion object {
-    private const val ARGS_VIEW_TYPE = "view_type"
-
-    const val VIEW_TYPE_MINI_PAINT = 0x101
-    const val VIEW_TYPE_CLIP_RECT = 0x102
-    const val VIEW_TYPE_SPOTLIGHT = 0x103
-  }
-
   private var mViewType: Int? = VIEW_TYPE_MINI_PAINT
 
   override fun onCreate(savedInstanceState: Bundle?) {

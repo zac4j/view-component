@@ -25,6 +25,10 @@
     <argument
       android:name="view_type"
       app:argType="integer" />
+    <deepLink
+      android:id="@+id/deepLink"
+      android:autoVerify="true"
+      app:uri="https://zacash.cn/app/painter" />
 
   </fragment>
 

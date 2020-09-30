@@ -3,7 +3,7 @@ package com.zac4j.sample
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.NavigationUI
 import com.zac4j.sample.R.layout
 import com.zac4j.sample.databinding.ActivityMainBinding
 
@@ -23,6 +23,6 @@ class MainActivity : AppCompatActivity() {
   private fun setupNavigation() {
     val navHostFragment =
       supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-    viewBinding.btmNavigator.setupWithNavController(navHostFragment.navController)
+    NavigationUI.setupWithNavController(viewBinding.bottomNavigator, navHostFragment.navController)
   }
 }
