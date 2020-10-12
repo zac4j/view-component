@@ -1,7 +1,5 @@
 package com.zac4j.sample.viewmodel
 
-import android.os.Bundle
-import android.widget.Button
 import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

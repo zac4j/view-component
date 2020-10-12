@@ -25,10 +25,10 @@ dependencies {
     def nav_version = "2.3.0"
 
     implementation project(':widget')
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
-    implementation 'com.google.android.material:material:1.2.1'
-    implementation "androidx.fragment:fragment-ktx:1.2.5"
+    implementation "androidx.appcompat:appcompat:$appCompat_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayout_version"
+    implementation "com.google.android.material:material:$material_version"
+    implementation "androidx.fragment:fragment-ktx:$fragmentKtx_version"
 
     // Kotlin
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"

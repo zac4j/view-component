@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import com.zac4j.sample.databinding.FragmentHomeBinding
 import com.zac4j.sample.viewmodel.HomeViewModel
