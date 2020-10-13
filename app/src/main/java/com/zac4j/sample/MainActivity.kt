@@ -4,25 +4,24 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.zac4j.sample.R.layout
-import com.zac4j.sample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-
-  private lateinit var viewBinding: ActivityMainBinding
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(layout.activity_main)
 
-    viewBinding = ActivityMainBinding.inflate(layoutInflater)
-
     setupNavigation()
   }
 
   private fun setupNavigation() {
+    val bottomNavigator = findViewById<BottomNavigationView>(R.id.bottom_navigator)
     val navHostFragment =
-      supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-    NavigationUI.setupWithNavController(viewBinding.bottomNavigator, navHostFragment.navController)
+      supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment
+    NavigationUI.setupWithNavController(
+        bottomNavigator, navHostFragment.navController
+    )
   }
 }

@@ -3,15 +3,17 @@
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <item
-    android:id="@+id/home_fragment"
+    android:id="@id/home_fragment"
     android:icon="@mipmap/ic_menu_home"
     android:title="@string/home_title" />
   <item
-    android:id="@+id/painter_fragment"
+    android:id="@id/painter_fragment"
     android:icon="@mipmap/ic_menu_painter"
-    android:title="@string/home_title_painter" />
+    android:title="@string/home_title_painter"
+    app:showAsAction="ifRoom" />
   <item
-    android:id="@+id/star_fragment"
+    android:id="@id/star_fragment"
     android:icon="@mipmap/ic_menu_star"
-    android:title="@string/home_title_star" />
+    android:title="@string/home_title_star"
+    app:showAsAction="always" />
 </menu>
