@@ -25,77 +25,79 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
 import com.zac4j.motion.R.color
 import com.zac4j.motion.R.id
 import com.zac4j.motion.R.layout
-import com.zac4j.motion.Step2Activity
-import com.zac4j.motion.Step3Activity
-import com.zac4j.motion.Step4Activity
-import com.zac4j.motion.Step5Activity
-import com.zac4j.motion.Step6Activity
-import com.zac4j.motion.Step7Activity
-import com.zac4j.motion.Step7CompletedActivity
-import com.zac4j.motion.Step8Activity
-import com.zac4j.motion.Step8CompletedActivity
 import kotlin.reflect.KClass
 
 data class Step(
-    val number: String,
-    val name: String,
-    val caption: String,
-    val activity: KClass<out Activity>,
-    val highlight: Boolean = false)
+  val number: String,
+  val name: String,
+  val caption: String,
+  val activity: KClass<out Activity>,
+  val highlight: Boolean = false
+)
 
 private val data = listOf(
-    Step("Step 1",
+    Step(
+        "Step 1",
         "Animations with Motion Layout",
         "Learn how to build a basic animation with Motion Layout. This will crash until you complete the step in the codelab.",
         Step1Activity::class
     ),
-    Step("Step 2",
+    Step(
+        "Step 2",
         "Animating based on drag events",
         "Learn how to control animations with drag events. This will not display any animation until you complete the step in the codelab.",
         Step2Activity::class
     ),
-    Step("Step 3",
+    Step(
+        "Step 3",
         "Modifying a path",
         "Learn how to use KeyFrames to modify a path between start and end.",
         Step3Activity::class
     ),
-    Step("Step 4",
+    Step(
+        "Step 4",
         "Building complex paths",
         "Learn how to use KeyFrames to build complex paths through multiple KeyFrames.",
         Step4Activity::class
     ),
-    Step("Step 5",
+    Step(
+        "Step 5",
         "Changing attributes with motion",
         "Learn how to resize and rotate views during animations.",
         Step5Activity::class
     ),
-    Step("Step 6",
+    Step(
+        "Step 6",
         "Changing custom attributes",
         "Learn how to change custom attributes during motion.",
         Step6Activity::class
     ),
-    Step("Step 7",
+    Step(
+        "Step 7",
         "OnSwipe with complex paths",
         "Learn how to control motion through complex paths with OnSwipe.",
         Step7Activity::class
     ),
-    Step("Completed: Steps 2-7",
+    Step(
+        "Completed: Steps 2-7",
         "Steps 2-7 completed",
         "All changes in steps 2-7 applied",
         Step7CompletedActivity::class,
         highlight = true
     ),
-    Step("Step 8",
+    Step(
+        "Step 8",
         "Running motion with code",
         "Learn how to use MotionLayout to build complex collapsing toolbar animations.",
         Step8Activity::class
     ),
-    Step("Completed: Step 8 ",
+    Step(
+        "Completed: Step 8 ",
         "Implements running motion with code",
         "Changes applied from step 8",
         Step8CompletedActivity::class,
@@ -103,62 +105,71 @@ private val data = listOf(
     )
 )
 
-class MainActivity : AppCompatActivity() {
+class MotionActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(layout.activity_main)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(layout.fragment_motion_home)
 
-        val recyclerView: RecyclerView = findViewById(id.recycler_view)
-        recyclerView.adapter = MainAdapter(data)
-    }
-
+    val recyclerView: RecyclerView = findViewById(id.recycler_view)
+    recyclerView.adapter = MainAdapter(data)
+  }
 }
 
 class MainAdapter(val data: List<Step>) : RecyclerView.Adapter<MainViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(layout.list_item, parent, false)
-        return MainViewHolder(view as CardView)
-    }
+  override fun onCreateViewHolder(
+    parent: ViewGroup,
+    viewType: Int
+  ): MainViewHolder {
+    val view = LayoutInflater.from(parent.context)
+        .inflate(layout.list_motion_item, parent, false)
+    return MainViewHolder(view as MaterialCardView)
+  }
 
-    override fun getItemCount() = data.size
+  override fun getItemCount() = data.size
 
-    override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.bind(data[position])
-    }
+  override fun onBindViewHolder(
+    holder: MainViewHolder,
+    position: Int
+  ) {
+    holder.bind(data[position])
+  }
 
 }
 
-class MainViewHolder(val cardView: CardView) : RecyclerView.ViewHolder(cardView) {
-    val header: TextView = cardView.findViewById(id.header)
-    val description: TextView = cardView.findViewById(id.description)
-    val caption: TextView = cardView.findViewById(id.caption)
+class MainViewHolder(private val cardView: MaterialCardView) : RecyclerView.ViewHolder(cardView) {
+  private val header: TextView = cardView.findViewById(id.header)
+  private val description: TextView = cardView.findViewById(id.description)
+  private val caption: TextView = cardView.findViewById(id.caption)
 
-    fun bind(step: Step) {
-        header.text = step.number
-        description.text = step.name
-        caption.text = step.caption
-        val context = cardView.context
-        cardView.setOnClickListener {
-            val intent = Intent(context, step.activity.java)
-            context.startActivity(intent)
-        }
-        val color = if (step.highlight) {
-            getColor(color.secondaryLightColor, itemView.context)
-        } else {
-            getColor(color.primaryTextColor, itemView.context)
-        }
-        header.setTextColor(color)
-        description.setTextColor(color)
+  fun bind(step: Step) {
+    header.text = step.number
+    description.text = step.name
+    caption.text = step.caption
+    val context = cardView.context
+    cardView.setOnClickListener {
+      val intent = Intent(context, step.activity.java)
+      context.startActivity(intent)
     }
+    val color = if (step.highlight) {
+      getColor(color.light, itemView.context)
+    } else {
+      getColor(color.dark, itemView.context)
+    }
+    header.setTextColor(color)
+    description.setTextColor(color)
+  }
 
-    fun getColor(@ColorRes colorResId: Int, context: Context): Int {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            context.resources.getColor(colorResId, context.theme)
-        } else {
-            @Suppress("DEPRECATION")
-            context.resources.getColor(colorResId)
-        }
+  fun getColor(
+    @ColorRes colorResId: Int,
+    context: Context
+  ): Int {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      context.resources.getColor(colorResId, context.theme)
+    } else {
+      @Suppress("DEPRECATION")
+      context.resources.getColor(colorResId)
     }
+  }
 
 }

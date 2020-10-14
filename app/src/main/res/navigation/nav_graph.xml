@@ -7,7 +7,7 @@
 
   <fragment
     android:id="@+id/home_fragment"
-    android:name="com.zac4j.sample.HomeFragment"
+    android:name="com.zac4j.sample.ui.HomeFragment"
     android:label="Home"
     tools:layout="@layout/fragment_home">
 
@@ -15,11 +15,13 @@
       android:id="@+id/action_home_to_custom_view"
       app:destination="@id/painter_fragment" />
 
+    <action android:id="@+id/action_home_to_motion" />
+
   </fragment>
 
   <fragment
     android:id="@+id/painter_fragment"
-    android:name="com.zac4j.sample.CustomViewFragment"
+    android:name="com.zac4j.sample.ui.CustomViewFragment"
     android:label="CustomViewFragment">
 
     <argument
@@ -34,7 +36,8 @@
 
   <fragment
     android:id="@+id/star_fragment"
-    android:name="com.zac4j.sample.StarAnimFragment"
+    android:name="com.zac4j.sample.ui.StarAnimFragment"
     android:label="StarAnimFragment"
     tools:layout="@layout/fragment_star_anim" />
+
 </navigation>

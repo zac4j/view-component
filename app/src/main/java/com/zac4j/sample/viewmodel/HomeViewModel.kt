@@ -31,11 +31,20 @@ class HomeViewModel : ViewModel() {
           override fun getArguments() = bundleOf(ARGS_VIEW_TYPE to VIEW_TYPE_CLIP_RECT)
         }
       }
-      else -> {
+
+      R.id.main_btn_show_spotlight -> {
         object : NavDirections {
           override fun getActionId() = R.id.action_home_to_custom_view
 
           override fun getArguments() = bundleOf(ARGS_VIEW_TYPE to VIEW_TYPE_SPOTLIGHT)
+        }
+      }
+
+      else -> {
+        object : NavDirections {
+          override fun getActionId() = R.id.action_home_to_motion
+
+          override fun getArguments() = bundleOf()
         }
       }
     }

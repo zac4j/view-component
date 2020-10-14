@@ -1,10 +1,11 @@
-package com.zac4j.sample
+package com.zac4j.sample.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.zac4j.sample.R.id
 import com.zac4j.sample.R.layout
 
 class MainActivity : AppCompatActivity() {
@@ -17,9 +18,9 @@ class MainActivity : AppCompatActivity() {
   }
 
   private fun setupNavigation() {
-    val bottomNavigator = findViewById<BottomNavigationView>(R.id.bottom_navigator)
+    val bottomNavigator = findViewById<BottomNavigationView>(id.bottom_navigator)
     val navHostFragment =
-      supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment
+      supportFragmentManager.findFragmentById(id.nav_host_container) as NavHostFragment
     NavigationUI.setupWithNavController(
         bottomNavigator, navHostFragment.navController
     )

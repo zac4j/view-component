@@ -1,11 +1,15 @@
-package com.zac4j.sample
+package com.zac4j.sample.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.ActivityNavigator
 import androidx.navigation.fragment.findNavController
+import com.zac4j.motion.MotionActivity
+import com.zac4j.sample.R
 import com.zac4j.sample.databinding.FragmentHomeBinding
 import com.zac4j.sample.viewmodel.HomeViewModel
 
@@ -40,7 +44,11 @@ class HomeFragment : Fragment() {
   ) {
     super.onViewCreated(view, savedInstanceState)
     mViewModel.navDirection.observe(viewLifecycleOwner, {
-      findNavController().navigate(it)
+      if (it.actionId == R.id.action_home_to_motion) {
+        startActivity(Intent(requireContext(), MotionActivity::class.java))
+      } else {
+        findNavController().navigate(it)
+      }
     })
   }
 }

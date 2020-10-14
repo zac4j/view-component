@@ -33,7 +33,7 @@
       android:theme="@style/AppTheme">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value="com.zac4j.motion.MainActivity" />
+        android:value="com.zac4j.motion.MotionActivity" />
     </activity>
     <activity
       android:name=".Step2Activity"
@@ -41,7 +41,7 @@
       android:theme="@style/AppTheme">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value="com.zac4j.motion.MainActivity" />
+        android:value="com.zac4j.motion.MotionActivity" />
     </activity>
     <activity
       android:name=".Step3Activity"
@@ -49,7 +49,7 @@
       android:theme="@style/AppTheme">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value="com.zac4j.motion.MainActivity" />
+        android:value="com.zac4j.motion.MotionActivity" />
     </activity>
     <activity
       android:name=".Step4Activity"
@@ -57,7 +57,7 @@
       android:theme="@style/AppTheme">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value="com.zac4j.motion.MainActivity" />
+        android:value="com.zac4j.motion.MotionActivity" />
     </activity>
     <activity
       android:name=".Step5Activity"
@@ -65,7 +65,7 @@
       android:theme="@style/AppTheme">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value="com.zac4j.motion.MainActivity" />
+        android:value="com.zac4j.motion.MotionActivity" />
     </activity>
     <activity
       android:name=".Step6Activity"
@@ -73,7 +73,7 @@
       android:theme="@style/AppTheme">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value="com.zac4j.motion.MainActivity" />
+        android:value="com.zac4j.motion.MotionActivity" />
     </activity>
     <activity
       android:name=".Step7Activity"
@@ -81,7 +81,7 @@
       android:theme="@style/AppTheme">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value="com.zac4j.motion.MainActivity" />
+        android:value="com.zac4j.motion.MotionActivity" />
     </activity>
     <activity
       android:name=".Step7CompletedActivity"
@@ -89,7 +89,7 @@
       android:theme="@style/AppTheme">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value="com.zac4j.motion.MainActivity" />
+        android:value="com.zac4j.motion.MotionActivity" />
     </activity>
     <activity
       android:name=".Step8Activity"
@@ -97,7 +97,7 @@
       android:theme="@style/AppTheme.NoActionBar">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value="com.zac4j.motion.MainActivity" />
+        android:value="com.zac4j.motion.MotionActivity" />
     </activity>
     <activity
       android:name=".Step8CompletedActivity"
@@ -105,15 +105,9 @@
       android:theme="@style/AppTheme.NoActionBar">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value="com.zac4j.motion.MainActivity" />
+        android:value="com.zac4j.motion.MotionActivity" />
     </activity>
-    <activity android:name="com.zac4j.motion.MainActivity">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
-    </activity>
+    <activity android:name="com.zac4j.motion.MotionActivity" />
   </application>
 
 </manifest>

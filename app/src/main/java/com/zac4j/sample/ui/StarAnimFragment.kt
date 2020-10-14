@@ -1,4 +1,4 @@
-package com.zac4j.sample
+package com.zac4j.sample.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater

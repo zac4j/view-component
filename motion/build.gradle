@@ -24,11 +24,8 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 30
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
     buildFeatures {
@@ -41,7 +38,7 @@ dependencies {
     //noinspection GradleDependency
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     kapt 'com.android.databinding:compiler:3.1.4'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation "androidx.appcompat:appcompat:$appCompat_version"
     implementation "androidx.core:core-ktx:$ktxCore_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayout_version"
     implementation "com.google.android.material:material:$material_version"

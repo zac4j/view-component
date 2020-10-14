@@ -1,2 +1,1 @@
-include ':motion'
-include ':app', ':widget'
+include ':app', ':widget', ':motion'

@@ -15,15 +15,15 @@
 
 package com.zac4j.motion
 
+import android.app.Activity
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity;
 import com.zac4j.motion.R.layout
 
-class Step1Activity : AppCompatActivity() {
+class Step1Activity : Activity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(layout.activity_step1)
-    }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(layout.activity_step1)
+  }
 
 }

@@ -1,4 +1,4 @@
-package com.zac4j.sample
+package com.zac4j.sample.ui
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -7,6 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.zac4j.sample.ARGS_VIEW_TYPE
+import com.zac4j.sample.R.string
+import com.zac4j.sample.VIEW_TYPE_CLIP_RECT
+import com.zac4j.sample.VIEW_TYPE_MINI_PAINT
+import com.zac4j.sample.VIEW_TYPE_SPOTLIGHT
 import com.zac4j.widget.ClippedView
 import com.zac4j.widget.MiniPaint
 import com.zac4j.widget.SpotLightImageView
@@ -44,7 +49,7 @@ class CustomViewFragment : Fragment() {
       }
       else -> {
         val painter = MiniPaint(requireContext())
-        painter.contentDescription = getString(R.string.canvasContentDescription)
+        painter.contentDescription = getString(string.canvasContentDescription)
         painter
       }
     }

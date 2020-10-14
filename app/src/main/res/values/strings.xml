@@ -7,7 +7,7 @@
   <string name="show_paint">show paint</string>
   <string name="show_rect">show clip rectangle</string>
   <string name="show_spotlight">show spotlight</string>
-  <string name="show_motion">show spotlight</string>
+  <string name="start_motion">start motion</string>
 
   <string name="rotate">Rotate</string>
   <string name="translate">Translate</string>

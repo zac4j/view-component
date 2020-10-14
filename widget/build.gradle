@@ -14,7 +14,3 @@ android {
 dependencies {
   implementation "androidx.appcompat:appcompat:$appCompat_version"
 }
-repositories {
-  google()
-  jcenter()
-}

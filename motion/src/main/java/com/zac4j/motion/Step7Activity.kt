@@ -15,14 +15,13 @@
 
 package com.zac4j.motion
 
+import android.app.Activity
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity;
 
-class Step7Activity : AppCompatActivity() {
+class Step7Activity : Activity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_step7)
-    }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_step7)
+  }
 }
