@@ -116,7 +116,7 @@ class MotionActivity : AppCompatActivity() {
   }
 }
 
-class MainAdapter(val data: List<Step>) : RecyclerView.Adapter<MainViewHolder>() {
+class MainAdapter(private val data: List<Step>) : RecyclerView.Adapter<MainViewHolder>() {
   override fun onCreateViewHolder(
     parent: ViewGroup,
     viewType: Int

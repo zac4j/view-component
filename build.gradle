@@ -9,6 +9,7 @@ buildscript {
     ext.constraintLayout_version = '2.0.2'
     ext.material_version = '1.2.1'
     ext.fragmentKtx_version = '1.2.5'
+    ext.lifecycleExt_version = '2.2.0'
 
     repositories {
         google()

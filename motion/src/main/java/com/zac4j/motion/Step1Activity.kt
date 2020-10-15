@@ -15,11 +15,11 @@
 
 package com.zac4j.motion
 
-import android.app.Activity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.zac4j.motion.R.layout
 
-class Step1Activity : Activity() {
+class Step1Activity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
