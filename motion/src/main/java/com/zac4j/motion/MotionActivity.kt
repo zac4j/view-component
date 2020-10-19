@@ -160,7 +160,7 @@ class MainViewHolder(private val cardView: MaterialCardView) : RecyclerView.View
     description.setTextColor(color)
   }
 
-  fun getColor(
+  private fun getColor(
     @ColorRes colorResId: Int,
     context: Context
   ): Int {
