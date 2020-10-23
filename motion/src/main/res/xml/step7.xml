@@ -20,16 +20,15 @@
   xmlns:motion="http://schemas.android.com/apk/res-auto">
   <!-- A transition describes an animation via start and end state -->
   <Transition
-
-    motion:constraintSetEnd="@+id/end"
-    motion:constraintSetStart="@+id/start"
+    motion:constraintSetEnd="@id/end"
+    motion:constraintSetStart="@id/start"
     motion:duration="3000">
 
     <!-- Fix OnSwipe by changing touchAnchorSide -->
     <OnSwipe
+      motion:dragDirection="dragRight"
       motion:touchAnchorId="@id/moon"
       motion:touchAnchorSide="bottom" />
-
 
     <KeyFrameSet>
       <KeyPosition
@@ -89,7 +88,6 @@
   <ConstraintSet android:id="@+id/start">
     <Constraint
       android:id="@id/moon"
-
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       motion:layout_constraintBottom_toBottomOf="parent"
